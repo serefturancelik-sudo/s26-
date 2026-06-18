@@ -1,0 +1,12 @@
+{
+  "license_version": "8.5.0",
+  "package_name": "com.samsung.s26.widget.simulation",
+  "developer_alias": "Cipil-Developer",
+  "permissions_approved": [
+    "android.permission.WRITE_SETTINGS",
+    "android.permission.SYSTEM_ALERT_WINDOW",
+    "com.samsung.android.knox.permission.KNOX_CUSTOM_SETTING"
+  ],
+  "status": "ACTIVE_VERIFIED",
+  "signature_hash": "sha256-S26OSPROJECT9876543210OK"
+}
