@@ -1,0 +1,16 @@
+{
+  "short_name": "S26 OS",
+  "name": "Samsung S26 Launcher ve Zamanlayıcı Projesi",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/888/888861.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/S26/index.html",
+  "background_color": "#000000",
+  "theme_color": "#0072ff",
+  "display": "standalone",
+  "orientation": "portrait"
+}
