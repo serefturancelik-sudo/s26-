@@ -1,0 +1,39 @@
+name: Android APK Uretme Sistemi
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Kodlari Depodan Cek
+        uses: actions/checkout@v3
+
+      - name: Node.js Sistemini Kur
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Android SDK Paketlerini Yukle
+        uses: android-actions/setup-android@v2
+
+      - name: Uygulama Paketleyiciyi Hazirla
+        run: |
+          npm init -y
+          npm install @capacitor/core @capacitor/cli
+          npm install @capacitor/android
+          npx cap init "S26 Sistem" "com.samsung.s26.widget" --web-dir=.
+          npx cap add android
+
+      - name: APK Dosyasini Derle ve Uret
+        run: |
+          npx cap sync android
+          cd android && ./gradlew assembleDebug
+
+      - name: Bitmis APK Dosyasini Disari Aktar
+        uses: actions/upload-artifact@v3
+        with:
+          name: S26-Uygulamasi-Paketi
+          path: android/app/build/outputs/apk/debug/app-debug.apk
